@@ -1,0 +1,48 @@
+@forward 'globals';
+
+input {
+    width: 100%;
+}
+
+.users-container {
+    background-color: #EEE;
+    margin-top: 2rem;
+    border-radius: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    margin-inline: 2rem;
+    
+    &:not(:last-of-type) {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #E6E6;
+    }
+
+    .delete-user {
+        color: red;
+        background-color: transparent;
+        border-color: transparent;
+        margin-left: auto;
+        padding: 0;
+        align-self: center;
+        cursor: pointer;
+    }
+}
+
+.user-img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+        object-fit: cover;
+        display: block;
+        aspect-ratio: 1;
+        max-width: 100%;
+    }
+}
