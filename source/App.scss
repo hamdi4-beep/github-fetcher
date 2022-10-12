@@ -1,19 +1,57 @@
 @forward 'globals';
 
-input {
-    margin-right: .5rem;
-    cursor: text;
+.user-profile {
+    display: flex;
+    gap: 1rem;
+
+    .user-img {
+        position: relative;
+        width: 5rem;
+        height: 5rem;
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            inset: -.5rem;
+            z-index: -1;
+            border: 5px solid transparent;
+            border-left-color: #DDD;
+            opacity: 1;
+            transition: opacity 1000ms ease;
+            transition-delay: 500ms;
+        }
+
+        &::after, &, img {
+            border-radius: 50%;
+        }
+    }
+
+    .spin::after {
+        animation-name: spin;
+        animation-duration: 1000ms;
+        animation-timing-function: ease-in;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+    }
+
+    .pause::after {
+        animation-play-state: paused;
+        border-color: #DDD;
+        opacity: 0;
+    }
 }
 
-.img-wrapper {
-    width: 10rem;
-    height: 10rem;
-    margin-top: 2rem;
+button {
+    margin-top: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+}
 
-    img {
-        display: block;
-        max-width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+    } 100% {
+        rotate: 360deg;
     }
 }

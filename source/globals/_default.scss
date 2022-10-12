@@ -19,5 +19,11 @@ input, button {
     border: 1px solid #E6E6E6;
     border-radius: 10px;
     outline: none;
-    cursor: pointer;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
 }

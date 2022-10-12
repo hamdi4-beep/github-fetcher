@@ -14,14 +14,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.post('/', (req, res) => {
     const data = JSON.stringify(req.body)
-
+    
     fs.writeFile('../db/database.json', data, err => {
         if (err) {
             console.log(err)
         }
     })
 
-    res.redirect('/')
+    res.end()
 })
 
 app.get('/', (req, res) => res.render('index'))

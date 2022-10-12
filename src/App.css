@@ -19,24 +19,65 @@ input, button {
   border: 1px solid #E6E6E6;
   border-radius: 10px;
   outline: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+.user-profile {
+  display: flex;
+  gap: 1rem;
+}
+.user-profile .user-img {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+}
+.user-profile .user-img::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: -0.5rem;
+  z-index: -1;
+  border: 5px solid transparent;
+  border-left-color: #DDD;
+  opacity: 1;
+  transition: opacity 1000ms ease;
+  transition-delay: 500ms;
+}
+.user-profile .user-img::after, .user-profile .user-img, .user-profile .user-img img {
+  border-radius: 50%;
+}
+.user-profile .spin::after {
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+.user-profile .pause::after {
+  animation-play-state: paused;
+  border-color: #DDD;
+  opacity: 0;
+}
+
+button {
+  margin-top: 1.5rem;
+  width: 100%;
   cursor: pointer;
 }
 
-input {
-  margin-right: 0.5rem;
-  cursor: text;
-}
-
-.img-wrapper {
-  width: 10rem;
-  height: 10rem;
-  margin-top: 2rem;
-}
-.img-wrapper img {
-  display: block;
-  max-width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
 }
 
 /*# sourceMappingURL=App.css.map */
