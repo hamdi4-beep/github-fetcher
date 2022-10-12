@@ -16,7 +16,6 @@
             inset: -.5rem;
             z-index: -1;
             border: 5px solid transparent;
-            border-left-color: #DDD;
             opacity: 1;
             transition: opacity 1000ms ease;
             transition-delay: 500ms;
@@ -33,6 +32,7 @@
         animation-timing-function: ease-in;
         animation-iteration-count: infinite;
         animation-fill-mode: forwards;
+        border-left-color: #DDD;
     }
 
     .pause::after {
@@ -42,10 +42,17 @@
     }
 }
 
-button {
+.container {
+    background-color: #EEE;
+    border-radius: 20px;
+    padding: 1.3rem;
     margin-top: 1.5rem;
-    width: 100%;
-    cursor: pointer;
+
+    button {
+        background-color: #DDD;
+        cursor: pointer;
+        margin-left: .5rem;
+    }
 }
 
 @keyframes spin {
