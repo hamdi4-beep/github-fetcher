@@ -1,13 +1,8 @@
-import React from "react";
-
-export class Form extends React.Component {
-    render() {
-        return (
-            <React.Fragment>
-                <form onSubmit={this.props.onSubmit} action='#'>
-                    <input type='text' name='username' placeholder='Aa' />
-                </form>
-            </React.Fragment>
-        )
-    }
+export function Form(props) {
+    return (
+        <form action='/' method='POST' onSubmit={props.onSubmit}>
+            <input type='text' name='image_url' placeholder='Aa' />
+            <button>Submit</button>
+        </form>
+    )
 }

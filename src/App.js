@@ -1,69 +1,51 @@
 import React from 'react'
-
-import { User } from './User'
 import { Form } from './Form'
 
 import './App.css'
-
-class UsersContainer extends React.Component {
-    render() {
-        return (
-            <div className='users-container'>
-                {this.props.children()}
-            </div>
-        )
-    }
-}
 
 export default class App extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            users: []
+            image_url: ''
         }
-        
-        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     render() {
-        const { users } = this.state
+        const { image_url } = this.state
 
         return (
             <div className='wrapper'>
-                <Form onSubmit={this.handleSubmit} />
+                <Form onSubmit={e => this.handleSubmit(e)}/>
 
-                <UsersContainer>
-                    {() => users.map((user, i) => {
-                        return (<User user={user} key={i} />)
-                    })}
-                </UsersContainer>
+                <div className='img-wrapper'>
+                    <img src={image_url} alt='' />
+                </div>
             </div>
         )
     }
 
-    handleSubmit(e) {
-        const { currentTarget } = e
-        const { users } = this.state
-        const { fetchData } = this
-
-        const formData = new FormData(currentTarget)
-        const username = formData.get('username')
-
-        fetchData(`https://api.github.com/users/${username}`)
-        .then(user => this.setState({
-            users: [...users, user]
-        }))
-
-        currentTarget.username.value = ''
-
-        e.preventDefault()
+    componentDidMount() {
+        fetch('/api')
+        .then(res => res.ok && res.json())
+        .then(data => this.setState({ ...data }))
     }
 
-    async fetchData(URL) {
-        const res = await fetch(URL)
-        const body = await res.json()
+    handleSubmit(e) {
+        const formData = new FormData(e.currentTarget)
+        const image_url = formData.get('image_url')
 
-        return body
+        console.log(image_url)
+
+        e.preventDefault()
+
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image_url })
+        }).then(res => this.componentDidMount())
     }
 }
