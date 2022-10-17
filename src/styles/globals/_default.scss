@@ -2,8 +2,6 @@
 *::before,
 *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -11,19 +9,14 @@ body {
     display: grid;
     place-content: center;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 input, button {
     font: inherit;
-    padding: .5rem 1rem;
-    border: 1px solid #E6E6E6;
+    border: 1px solid #DDD;
     border-radius: 10px;
     outline: none;
-}
-
-img {
-    display: block;
-    max-width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1;
+    padding: .5rem 1rem;
 }

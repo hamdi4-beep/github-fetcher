@@ -1,0 +1,44 @@
+@forward 'globals';
+
+form {
+    outline: 1px solid blue;
+}
+
+.todos {
+
+    &__container {
+        background-color: #E6E6E6;
+        border-radius: 20px;
+        padding: 2rem;
+        padding-bottom: 0;
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+
+            & > * + * {
+                border-top: 1px solid black;
+                padding-bottom: 1rem;
+            }
+            
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                padding-block: 1rem;
+                margin: 0;
+            }
+
+            button {
+                margin-left: 1rem;
+            }
+        }
+    }
+}
+
+.add-todo {
+    background-color: black;
+    color: white;
+    margin-left: .5rem;
+}

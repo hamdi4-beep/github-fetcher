@@ -1,73 +1,61 @@
-import React from 'react'
-import { User } from './User'
-import './App.css'
+import React, { useState } from 'react'
+import './styles'
+import { Form } from './Form'
 
-function uploadImg(addImg) {
-    const input = document.createElement('input')
+function TodoList(props) {
+    const list = props.list
 
-    input.type = 'file'
-    input.click()
-
-    input.onchange = e => {
-        if (input.files[0]) {
-            const file = input.files[0]
-            const type = file.type
-
-            if (type.split('/')[0] !== 'image') return
-
-            addImg(URL.createObjectURL(file))
-        }
-    }
-
-    input.remove()
+    return (
+        <ul>
+            {list.map((item, i) => (<React.Fragment key={i}>{props.children(item)}</React.Fragment>))}
+        </ul>
+    )
 }
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props)
+function TodoItem({ deleteItem, item }) {
+    return (
+        <li>
+            {item}
+            <button onClick={deleteItem}>Delete Item</button>
+        </li>
+    )
+}
 
-        this.state = {
-            user: {}
-        }
+function TodosContainer() {
+    const [items, setItems] = useState([])
+
+    const handleSubmit = e => {
+        const formData = new FormData(e.currentTarget)
+        const todo_item = formData.get('todo-item')
+
+        if (!todo_item) return
+
+        setItems(Array.from(new Set([...items, todo_item])))
+
+        e.preventDefault()
     }
 
-    render() {
-        const { user } = this.state
-
-        return (
-            <div className='wrapper'>
-                {user && (
-                    <User user={user}>
-                        <div className='user-img' onClick={e => this.handleClick(e)}>
-                            <img src={user.avatar_url} alt='' />
-                        </div>
-                    </User>
-                )}
-            </div>
-        )
+    const handleDeleteClick = (e, target) => {
+        setItems(items.filter(item => !item.includes(target)))
     }
 
-    handleClick(e) {
-        const userImg = e.currentTarget
+    return (
+        <div className='todos__container'>
+            <Form onSubmit={handleSubmit} />
 
-        uploadImg(URL => {
-            this.setState(prevState => ({
-                user: {
-                    ...prevState.user,
-                    avatar_url: URL
-                }
-            }))
+            {items.length > 0 && (
+                <TodoList list={items}>
+                    {item => (<TodoItem deleteItem={e => handleDeleteClick(null, item)} item={item} />)}
+                </TodoList>
+            )}
+        </div>
+    )
+}
 
-            if (!userImg.classList.contains('pause')) userImg.classList.add('pause')
-        })
-
-        if (!userImg.classList.contains('spin')) userImg.classList.add('spin')
-        if (userImg.classList.contains('pause')) userImg.classList.remove('pause')
-    }
-
-    componentDidMount() {
-        fetch('https://api.github.com/users/hamdi4-beep')
-        .then(res => res.ok && res.json())
-        .then(user => this.setState({ user }))
-    }
+export default function App() {
+    return (
+        <div className='wrapper'>
+            <TodosContainer />
+        </div>
+    )
 }

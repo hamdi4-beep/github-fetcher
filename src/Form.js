@@ -1,12 +1,8 @@
-const React = require('react')
-
-export function Form(props) {
+export function Form({ onSubmit }) {
     return (
-        <React.Fragment>
-            <form action='/' method='POST' onSubmit={props.onSubmit}>
-                <input type='text' name='image_url' placeholder='Aa' />
-                <button>Submit</button>
-            </form>
-        </React.Fragment>
+        <form onSubmit={onSubmit} action='/'>
+            <input type='text' name='todo-item' placeholder='Aa' />
+            <button className='add-todo'>Create Todo</button>
+        </form>
     )
 }
