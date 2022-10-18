@@ -1,20 +1,21 @@
 @forward 'globals';
 
-form {
-    outline: 1px solid blue;
-}
-
 .todos {
 
     &__container {
-        background-color: #E6E6E6;
-        border-radius: 20px;
-        padding: 2rem;
-        padding-bottom: 0;
+
+        input {
+            background-color: #E6E6E6;
+        }
 
         ul {
+            border: 1px solid #E6E6E6;
+            border-radius: 20px;
             list-style-type: none;
+            margin: 0;
             padding: 0;
+            margin-top: 1.4rem;
+            padding-inline: 1.5rem;
 
             & > * + * {
                 border-top: 1px solid black;
@@ -31,7 +32,12 @@ form {
             }
 
             button {
+                background: none;
+                color: red;
                 margin-left: 1rem;
+                border: none;
+                cursor: pointer;
+                padding: 0;
             }
         }
     }
