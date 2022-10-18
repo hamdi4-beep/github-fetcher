@@ -6,6 +6,10 @@ input {
 
 .users {
 
+    &__container {
+        padding: .5rem;
+    }
+
     &__list {
         background-color: #E6E6E6;
         margin-top: 1.5rem;
@@ -21,8 +25,7 @@ input {
 .user {
 
     &__profile {
-        display: flex;
-        gap: 1rem;
+        display: block;
 
         &:not(:first-of-type) {
             padding-top: 1rem;
@@ -30,6 +33,7 @@ input {
         }
 
         button {
+            display: block;
             background: none;
             border: none;
             padding: 0;
@@ -42,14 +46,50 @@ input {
 
     &__img {
         width: 5rem;
+        height: 5rem;
         border-radius: 50%;
         overflow: hidden;
+        margin-bottom: .5rem;
 
         img {
-            display: block;
-            max-width: 100%;
-            aspect-ratio: 1;
             object-fit: cover;
+            width: 100%;
+            height: 100%;
         }
     }
+
+    &__bio {
+        margin-block: 1rem;
+    }
+}
+
+@media only screen and (min-width: 425px) {
+
+    .user {
+
+        &__profile {
+            display: flex;
+            gap: 1rem;
+        }
+
+        &__img {
+            outline: 1px solid blue;
+            margin: 0;
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        &__info {
+            width: min(100%, 30rem);
+
+            p {
+                white-space: wrap;
+                word-wrap: break-word;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
 }

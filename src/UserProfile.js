@@ -8,6 +8,10 @@ export function UserProfile({ deleteUser, user }) {
             <div className='user__info'>
                 <h3>{user.name}</h3>
                 <a href={user.html_url}>@{user.login}</a>
+
+                <div className='user__bio'>
+                    <p>{user.bio}</p>
+                </div>
             </div>
 
             <button onClick={deleteUser}>Delete User</button>
