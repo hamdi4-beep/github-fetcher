@@ -9,19 +9,17 @@ export function TodosContainer() {
     const handleSubmit = e => {
         const formData = new FormData(e.currentTarget)
         const todo_item = formData.get('todo-item')
+        const updatedList = Array.from(new Set([...items, todo_item]))
 
         if (!todo_item) return
 
-        setItems(Array.from(new Set([...items, todo_item])))
+        setItems(updatedList)
 
         e.currentTarget['todo-item'].value = ''
-
         e.preventDefault()
     }
 
-    const handleDeleteClick = (e, target) => {
-        setItems(items.filter(item => !item.includes(target)))
-    }
+    const handleDeleteClick = (e, target) => setItems(items.filter(item => item !== target))
 
     return (
         <div className='todos__container'>
@@ -29,7 +27,7 @@ export function TodosContainer() {
 
             {items.length > 0 && (
                 <TodoList list={items}>
-                    {item => (<TodoItem deleteItem={e => handleDeleteClick(null, item)} item={item} />)}
+                    {item => (<TodoItem deleteItem={e => handleDeleteClick(e, item)} item={item} />)}
                 </TodoList>
             )}
         </div>

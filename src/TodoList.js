@@ -5,7 +5,9 @@ export function TodoList(props) {
 
     return (
         <ul>
-            {list.map((item, i) => (<React.Fragment key={i}>{props.children(item)}</React.Fragment>))}
+            {list.map((item, i) => (
+                <React.Fragment key={i}>{props.children(item)}</React.Fragment>
+            ))}
         </ul>
     )
 }
