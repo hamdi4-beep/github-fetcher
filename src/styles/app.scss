@@ -63,7 +63,7 @@ input {
     }
 }
 
-@media only screen and (min-width: 425px) {
+@media only screen and (min-width: 768px) {
 
     .user {
 
@@ -73,22 +73,11 @@ input {
         }
 
         &__img {
-            outline: 1px solid blue;
             margin: 0;
-
-            img {
-                max-width: 100%;
-            }
         }
 
-        &__info {
-            width: min(100%, 30rem);
-
-            p {
-                white-space: wrap;
-                word-wrap: break-word;
-                text-overflow: ellipsis;
-            }
+        &__bio {
+            width: min(80%, 20rem);
         }
     }
 
