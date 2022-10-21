@@ -1,93 +1,28 @@
 @forward 'globals';
 
-input {
-    margin-right: .5rem;
+.flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
 }
 
-.users {
-
-    &__container {
-        max-width: 30rem;
-        padding: .5rem;
-    }
-
-    &__list {
-        background-color: #E6E6E6;
-        margin-top: 1.5rem;
-        padding: 1.4rem;
-        border-radius: 20px;
-
-        & > * + * {
-            border-top: 1px solid black;
-        }
-    }
+.cta {
+    background: black;
+    color: white;
+    margin-left: .5em;
+    padding-inline: 1.5em;
+    cursor: pointer;
 }
 
-.user {
-
-    &__profile {
-        display: block;
-
-        &:not(:first-of-type) {
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
-
-        button {
-            display: block;
-            background: none;
-            border: none;
-            margin-left: auto;
-            padding: 0;
-            color: red;
-            align-self: flex-end;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-    }
-
-    &__img {
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-bottom: .5rem;
-        flex-shrink: 0;
-
-        img {
-            display: block;
-            max-width: 100%;
-            object-fit: cover;
-            aspect-ratio: 1;
-        }
-    }
-
-    &__info {
-        width: min(80%, 15rem);
-    }
-
-    &__bio {
-        margin-block: 1rem;
-    }
+li {
+    background-color: #E6E6E6;
+    padding: 1em;
 }
 
-@media only screen and (min-width: 768px) {
+.toggle-darkmode {
+    background-color: black;
 
-    .user {
-
-        &__profile {
-            position: relative;
-            display: flex;
-            gap: 1rem;
-        }
-
-        &__img {
-            margin: 0;
-        }
-
-        button {
-            position: absolute;
-        }
+    &, img {    
+        filter: invert(1) hue-rotate(180deg);
     }
-
 }
