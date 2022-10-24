@@ -17,6 +17,7 @@ const Container = styled.div`
     color: white;
     padding: 5em;
     padding-bottom: ${props => props.paddingBottom};
+    transition: padding-bottom 500ms ease;
 `
 
 const HeaderText = styled.h1`
@@ -39,7 +40,7 @@ const InputText = styled.input`
 `
 
 const Square = styled.div`
-    background: yellow;
+    background: ${props => props.color};
     width: 10rem;
     height: 10rem;
     margin-top: 2em;
@@ -47,9 +48,11 @@ const Square = styled.div`
 `
 
 export default function App() {
-    const [paddingBottom, setPaddingBottom] = useState('.5em')
+    const [paddingBottom, setPaddingBottom] = useState('1em')
+    const [color, setColor] = useState('yellow')
 
-    const handleChange = ({ value }) => setPaddingBottom(`${value}em`)
+    const handleRangeChange = ({ value }) => setPaddingBottom(`${value}em`)
+    const handleTextChange = ({ value }) => setColor(value.replace(/\s/, ''))
 
     return (
         <div className='wrapper'>
@@ -57,11 +60,11 @@ export default function App() {
 
             <Container paddingBottom={paddingBottom}>
                 <HeaderText>Design Pattern</HeaderText>
-                <InputText placeholder='Aa' />
-                <input type='range' onChange={({ currentTarget }) => handleChange(currentTarget)} min='1' max='10' />
+                <InputText onChange={({ currentTarget }) => handleTextChange(currentTarget)} placeholder='Aa' />
+                <input type='range' onChange={({ currentTarget }) => handleRangeChange(currentTarget)} min='1' max='10' />
             </Container>
 
-            <Square></Square>
+            <Square color={color}></Square>
         </div>
     )
 }
