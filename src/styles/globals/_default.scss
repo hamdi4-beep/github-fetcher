@@ -19,6 +19,10 @@ input, button {
     border-radius: 10px;
     outline: none;
     padding: .5em 1em;
+
+    &[type='file'] {
+        display: none;
+    }
 }
 
 ul {

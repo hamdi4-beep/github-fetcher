@@ -1,65 +1,67 @@
+import styled, { createGlobalStyle } from "styled-components"
 import { useState } from 'react'
-import './styles'
 
-function Form({ onSubmit }) {
-    return (
-        <form onSubmit={onSubmit}>
-            <input type='text' name='username' placeholder='Aa' />
-            <button>Add User</button>
-        </form>
-    )
-}
+const GlobalStyle = createGlobalStyle`
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+`
 
-function User({ user, deleteUser }) {
-    return (
-        <div className='user__profile'>
-            <div className='user__img'>
-                <img src={user.avatar_url} alt='' />
-            </div>
+const Container = styled.div`
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    display: grid;
+    place-items: center;
+    background: black;
+    color: white;
+    padding: 5em;
+    padding-bottom: ${props => props.paddingBottom};
+`
 
-            <div className='user__info'>
-                <h3>{user.name}</h3>
-                <p>@{user.login}</p>
-                <button onClick={deleteUser}>Delete User</button>
-            </div>
-        </div>
-    )
-}
+const HeaderText = styled.h1`
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1em;
+    line-height: 1;
+`
+
+const InputText = styled.input`
+    font: inherit;
+    background: #222;
+    color: white;
+    margin-bottom: 1.3em;
+    padding: .5em 1em;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+`
+
+const Square = styled.div`
+    background: yellow;
+    width: 10rem;
+    height: 10rem;
+    margin-top: 2em;
+    margin-inline: auto;
+`
 
 export default function App() {
-    const [users, setUsers] = useState([])
-    const [query, setQuery] = useState('')
+    const [paddingBottom, setPaddingBottom] = useState('.5em')
 
-    const handleSubmit = e => {
-        const formData = new FormData(e.currentTarget)
-        const username = formData.get('username')
-
-        if (!username) return
-
-        fetch(`https://api.github.com/users/${username}`)
-        .then(res => res.ok && res.json())
-        .then(user => setUsers(oldUsers => [...oldUsers, user]))
-
-        e.preventDefault()
-    }
-
-    const handleClick = target => setUsers(users.filter(user => target !== user))
-
-    const filteredUsers = users.filter(user => user.name.toLowerCase().includes(query.toLowerCase()))
+    const handleChange = ({ value }) => setPaddingBottom(`${value}em`)
 
     return (
-        <div className='wrapper flex'>
-            <div>
-                <input type='search' onChange={({ currentTarget }) => setQuery(currentTarget.value)} placeholder='Search Users' />
-                
-                <div className='users__container'>
-                    {filteredUsers.map((user, i) => (
-                        <User key={i} user={user} deleteUser={() => handleClick(user)} />
-                    ))}
-                </div>
-            </div>
+        <div className='wrapper'>
+            <GlobalStyle />
 
-            <Form onSubmit={handleSubmit} />
+            <Container paddingBottom={paddingBottom}>
+                <HeaderText>Design Pattern</HeaderText>
+                <InputText placeholder='Aa' />
+                <input type='range' onChange={({ currentTarget }) => handleChange(currentTarget)} min='1' max='10' />
+            </Container>
+
+            <Square></Square>
         </div>
     )
 }
