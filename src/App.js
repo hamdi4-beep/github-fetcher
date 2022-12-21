@@ -1,70 +1,82 @@
-import styled, { createGlobalStyle } from "styled-components"
-import { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import styled from 'styled-components'
+import './styles'
 
-const GlobalStyle = createGlobalStyle`
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-`
-
-const Container = styled.div`
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    display: grid;
-    place-items: center;
-    background: black;
-    color: white;
-    padding: 5em;
-    padding-bottom: ${props => props.paddingBottom};
-    transition: padding-bottom 500ms ease;
-`
-
-const HeaderText = styled.h1`
-    font-size: 3rem;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 1em;
-    line-height: 1;
-`
-
-const InputText = styled.input`
-    font: inherit;
-    background: #222;
-    color: white;
-    margin-bottom: 1.3em;
-    padding: .5em 1em;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-`
-
-const Square = styled.div`
-    background: ${props => props.color};
-    width: 10rem;
-    height: 10rem;
-    margin-top: 2em;
+const Wrapper = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: #fbfaf5;
+    width: 100%;
+    max-width: 48rem;
+    min-height: 100vh;
+    overflow: hidden;
     margin-inline: auto;
 `
 
-export default function App() {
-    const [paddingBottom, setPaddingBottom] = useState('1em')
-    const [color, setColor] = useState('yellow')
+function Container({ children }) {
+    const [list, setList] = useState(['Minimalistic', 'UI/UX'])
+    const inputRef = useRef(null)
+    const ulRef = useRef(null)
 
-    const handleRangeChange = ({ value }) => setPaddingBottom(`${value}em`)
-    const handleTextChange = ({ value }) => setColor(value.replace(/\s/, ''))
+    const handleSubmit = e => {
+        const input = inputRef.current
+        const item = input.value
+
+        setList([...list, item])
+        input.value = ''
+
+        e.preventDefault()
+    }
+
+    const deleteItem = id => {
+        const filtered = list.filter((item, i) => id !== i)
+        setList(filtered)
+    }
 
     return (
-        <div className='wrapper'>
-            <GlobalStyle />
+        <div className='list-container'>
+            <ul ref={ulRef}>
+                <form onSubmit={handleSubmit}>
+                    <input type='text' placeholder='Aa' ref={inputRef} />
+                </form>
 
-            <Container paddingBottom={paddingBottom}>
-                <HeaderText>Design Pattern</HeaderText>
-                <InputText onChange={({ currentTarget }) => handleTextChange(currentTarget)} placeholder='Aa' />
-                <input type='range' onChange={({ currentTarget }) => handleRangeChange(currentTarget)} min='1' max='10' />
-            </Container>
+                <div className='items-list'>
+                    {(list.length > 0 && list.map((item, i) => (
+                        <li onClick={() => deleteItem(i)} key={i}>
+                            {item}
+                        </li>
+                    ))) || <li className='empty'>No more items.</li>}
 
-            <Square color={color}></Square>
+                    {children(ulRef)}
+                </div>
+            </ul>
         </div>
+    )
+}
+
+export default function App() {
+    const handleClick = ({ target }, ref) => {
+        const ul = ref.current
+        ul.className = target.classList[1]
+    }
+
+    return (
+        <Wrapper>
+            <div className='cover-img'>
+                <img src='https://media.tenor.com/DO1dJzsv2MQAAAAC/aesthetic-aesthetic-background.gif' alt='product cover' />
+            </div>
+
+            <Container>
+                {ref => (
+                    <div className='colors-container'>
+                        <div className='color one' onClick={e => handleClick(e, ref)}></div>
+                        <div className='color two' onClick={e => handleClick(e, ref)}></div>
+                        <div className='color three' onClick={e => handleClick(e, ref)}></div>
+                        <div className='color four' onClick={e => handleClick(e, ref)}></div>
+                    </div>
+                )}
+            </Container>
+        </Wrapper>
     )
 }

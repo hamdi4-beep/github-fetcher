@@ -1,0 +1,49 @@
+.colors-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: grid;
+
+    & > * {
+        width: 5px;
+        height: 100%;
+    }    
+}
+
+.colors-container .one, .one li {
+    background-color: black;
+    color: white;
+
+    &:hover::after {
+        background-color: purple;
+    }
+
+    &::after {
+        background-color: white;
+    }
+}
+
+.colors-container .two, .two li {
+    background-color: yellow;
+}
+
+.colors-container .three, .three li {
+    background-color: purple;
+    color: white;
+
+    &:hover::after {
+        background-color: black;
+    }
+
+    &::after {
+        background-color: white;
+    }
+}
+
+.colors-container .four, .four li {
+    background-color: pink;
+
+    &:hover::after {
+        background-color: white;
+    }
+}
